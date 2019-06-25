@@ -1,0 +1,13 @@
+[package]
+name = "rust-example-web3"
+version = "0.1.0"
+authors = ["josojo <josojo@hotmail.de>"]
+edition = "2018"
+
+[dependencies]
+web3 = { git = "https://github.com/tomusdrw/rust-web3", rev = "56ad08e" }
+rustc-hex = "*"
+
+[[bin]]
+name = "simple_storage"
+path = "bin/simple_storage.rs"
