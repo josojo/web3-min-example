@@ -14,4 +14,4 @@ solcjs contracts/SimpleStorage.sol --bin -o ./build/
 
 Now we can run an example
 
-    cargo run --bin contract
+    cargo run --bin simple_storage
