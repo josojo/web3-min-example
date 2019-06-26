@@ -4,7 +4,7 @@ extern crate web3;
 use std::time;
 use web3::contract::{Contract, Options};
 use web3::futures::Future;
-use web3::types::U256;
+use web3::types::{U256, Address};
 
 fn main() {
     let (_eloop, transport) = web3::transports::Http::new("http://localhost:8545").unwrap();
@@ -18,16 +18,10 @@ fn main() {
 
     // Get the contract bytecode for instance from Solidity compiler
     let bytecode = include_str!("./../src/build/contracts_SimpleStorage_sol_SimpleStorage.bin");
-    // Deploying a contract
-    let contract = Contract::deploy(web3.eth(), include_bytes!("./../src/build/contracts_SimpleStorage_sol_SimpleStorage.abi"))
-        .unwrap()
-        .confirmations(0)
-        .poll_interval(time::Duration::from_secs(10))
-        .options(Options::with(|opt| opt.gas = Some(6_000_000.into())))
-        .execute(bytecode, (), accounts[0])
-        .unwrap()
-        .wait()
-        .unwrap();
+    
+    let address = Address::from("0xec0b9Ed45c0357A4539DF79bA7cF1259A2Cf4adD");
+
+    let contract = Contract::from_json(web3.eth(), address, include_bytes!("./../src/build/contracts_SimpleStorage_sol_SimpleStorage.abi")).unwrap();
 
     println!("{}", contract.address());
 
